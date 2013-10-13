@@ -100,7 +100,7 @@ function raiseErrorOnInvalidFields() {
             y: {
                 z: 6
             }
-        }, true);
+        }, null, true);
     } catch (e) {
         unraised = false;
         assert.equal(e.message, "invalid type (expected number) for y.z");
@@ -113,6 +113,22 @@ function raiseErrorOnInvalidFields() {
     }
 }
 
+function transformFunctionUsedToSetValue() {
+    var usr = {
+        x: 5
+    };
+    var def = {
+        x: "a"
+    };
+    var transform = {
+        x: function(val) { return "abcdef"[val]; }
+    };
+    
+    var res = defaultify(usr, def, transform, true).value;
+    console.log(res);
+    assert.equal(res.x, "f");
+}
+
 process.nextTick(defaultIsReturnedIfNotFound);
 process.nextTick(userValuesNotSpecifiedInDefaultNotReturned);
 process.nextTick(userValuesNotSpecifiedInDefaultInInfo);
@@ -123,3 +139,4 @@ process.nextTick(copiesObjects);
 process.nextTick(arraysAreCopied);
 process.nextTick(subObjectsCopiedCorrectly);
 process.nextTick(raiseErrorOnInvalidFields);
+process.nextTick(transformFunctionUsedToSetValue);
