@@ -1,0 +1,25 @@
+{
+  "name": "defaultify",
+  "version": "0.0.1",
+  "description": "utility javascript module to set object literals used as options for functions",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pretorh/defaultify.git"
+  },
+  "keywords": [
+    "defaults",
+    "options"
+  ],
+  "author": "Hendri Pretorius",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pretorh/defaultify/issues"
+  }
+}
