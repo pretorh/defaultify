@@ -70,7 +70,7 @@ function newObjectIsReturned() {
 
 function useUserValueOnlyIfSameType() {
     assert.equal(values.x, 6.5);
-    assert.equal(result.info["x"], "invalid type");
+    assert.equal(result.info["x"], "invalid type (expected number)");
 }
 
 function copiesObjects() {
@@ -87,6 +87,32 @@ function subObjectsCopiedCorrectly() {
     assert.equal(values.obj2.x, 5);
 }
 
+function raiseErrorOnInvalidFields() {
+    var unraised = true;
+    try {
+        defaultify({
+            y: {
+                z: "5"
+            },
+            z: "5"
+        }, {
+            x: 5,
+            y: {
+                z: 6
+            }
+        }, true);
+    } catch (e) {
+        unraised = false;
+        assert.equal(e.message, "invalid type (expected number) for y.z");
+        assert.equal(e.arguments.y.z, "invalid type (expected number)");
+        assert.equal(e.arguments.z, "unknown key");
+    }
+    
+    if (unraised) {
+        assert.fail("error not raised");
+    }
+}
+
 process.nextTick(defaultIsReturnedIfNotFound);
 process.nextTick(userValuesNotSpecifiedInDefaultNotReturned);
 process.nextTick(userValuesNotSpecifiedInDefaultInInfo);
@@ -96,3 +122,4 @@ process.nextTick(useUserValueOnlyIfSameType);
 process.nextTick(copiesObjects);
 process.nextTick(arraysAreCopied);
 process.nextTick(subObjectsCopiedCorrectly);
+process.nextTick(raiseErrorOnInvalidFields);
