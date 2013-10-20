@@ -140,6 +140,30 @@ function nullDefaultsAreTreatedAsAnyThing() {
     assert.equal(res.value.x, 5);
 }
 
+function transformFailuresFailsWithRaiseError() {
+    var usr = {
+        x: 5
+    };
+    var def = {
+        x: 10
+    };
+    var transform = {
+        x: function() {
+            throw new Error("overwrite of x is not allowed");
+        }
+    };
+    
+    var gotErr = false;
+    try {
+        defaultify(usr, def, transform, true);
+    } catch (e) {
+        assert.equal(e.message, "transform failed: overwrite of x is not allowed for x");
+        gotErr = true;
+    }
+    
+    assert(gotErr, "exception not raised");
+}
+
 process.nextTick(defaultIsReturnedIfNotFound);
 process.nextTick(userValuesNotSpecifiedInDefaultNotReturned);
 process.nextTick(userValuesNotSpecifiedInDefaultInInfo);
@@ -152,3 +176,4 @@ process.nextTick(subObjectsCopiedCorrectly);
 process.nextTick(raiseErrorOnInvalidFields);
 process.nextTick(transformFunctionUsedToSetValue);
 process.nextTick(nullDefaultsAreTreatedAsAnyThing);
+process.nextTick(transformFailuresFailsWithRaiseError);
