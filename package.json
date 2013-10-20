@@ -1,6 +1,6 @@
 {
   "name": "defaultify",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "utility javascript module to set object literals used as options for functions",
   "main": "index.js",
   "directories": {
