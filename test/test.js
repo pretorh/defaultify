@@ -129,6 +129,17 @@ function transformFunctionUsedToSetValue() {
     assert.equal(res.x, "f");
 }
 
+function nullDefaultsAreTreatedAsAnyThing() {
+    var usr = {
+        x: 5
+    };
+    var def = {
+        x: null
+    };
+    var res = defaultify(usr, def, true);
+    assert.equal(res.value.x, 5);
+}
+
 process.nextTick(defaultIsReturnedIfNotFound);
 process.nextTick(userValuesNotSpecifiedInDefaultNotReturned);
 process.nextTick(userValuesNotSpecifiedInDefaultInInfo);
@@ -140,3 +151,4 @@ process.nextTick(arraysAreCopied);
 process.nextTick(subObjectsCopiedCorrectly);
 process.nextTick(raiseErrorOnInvalidFields);
 process.nextTick(transformFunctionUsedToSetValue);
+process.nextTick(nullDefaultsAreTreatedAsAnyThing);
